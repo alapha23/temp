@@ -52,7 +52,7 @@ int main(void)
 	// TODO: Print out pool right here
         printf("System call invoked with flag %ld\n", flag);
 	
-	emit_buf(buf, N_ENTRY);
+	emit_buf(pool, N_ENTRY);
         return 0;
 }
 
