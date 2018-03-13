@@ -24,9 +24,12 @@ static void emit_buf(struct prinfo *buf, int entry)
 	struct prinfo *info;
 	int counter;
 
+	printf("Emit buf:\n");
 	for(counter = 0; counter < entry; counter++)
 	{
 		info = buf+counter;
+
+		printf("Access info(%p) at buf(%p) + counter(%d)\n", info, buf, counter);
 		int dep = info->depth;
 		while(dep)
 		{
@@ -34,7 +37,6 @@ static void emit_buf(struct prinfo *buf, int entry)
 			dep--;
 		}
 		printf("%s,%d,%ld,%d,%d,%d,%ld\n", info->comm, info->pid, info->state,  info->parent_pid, info->first_child_pid, info->next_sibling_pid, info->uid);
-
 	}
 }
 
