@@ -28,8 +28,11 @@ static void emit_buf(struct prinfo *buf, int nentry)
 	{
 		info = buf+counter;
 
-		if(info == NULL)
+		if((counter!=0) && (info->pid==0))
+		{
+			printf("Emitted %d process", counter+1);
 			break;
+		}
 
 		printf("Access info(%p) at buf(%p) + counter(%d)\n", info, buf, counter);
 		int _i = depth;
@@ -66,9 +69,6 @@ int main(int args, char **argv)
 	}
 	int N_ENTRY;
 	sscanf(argv[1], "%d", &N_ENTRY);
-	printf("got a %d\n", N_ENTRY);
-
-
 
         long flag;
         struct prinfo *pool =(struct prinfo *) malloc(N_ENTRY*sizeof(struct prinfo));
