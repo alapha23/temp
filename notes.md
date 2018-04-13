@@ -36,3 +36,12 @@ block processes,
 	* prepare_to_wait() and finish_wait()
 	* wait event 
 	* 
+
+
+ screen -S artik10 /dev/ttyUSB0 115200 cs8 ixoff
+
+
+direct_set_debug.sh --sdb-set
+
+sdb -d root on
+sdb shell
