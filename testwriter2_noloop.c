@@ -19,14 +19,11 @@ int main(int argc, char **argv)
                 exit(1);
         }
 
-        while(1)
-        {
                 ret = syscall(__NR_rotlock_write, NULL, NULL);
                 printf("writer%s %d return %d\n", argv[1], __NR_rotlock_read, ret);
                 ret = syscall(__NR_rotunlock_write, NULL, NULL);
 
                 printf("writer%s unlock %d return %d\n", argv[1], __NR_rotlock_read, ret);
-        }
 
         
 }

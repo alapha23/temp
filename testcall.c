@@ -13,17 +13,18 @@ int main(int argc, char **argv)
 {
 	int ret;
         ret = syscall(__NR_rotlock_read, NULL, NULL);
-	if(ret != 0)	printf("lock read %d return %d\n", __NR_rotlock_read, ret);
-
+	printf("lock read %d return %d\n", __NR_rotlock_read, ret);
 
         ret = syscall(__NR_rotunlock_read, NULL, NULL);
-	if(ret != 0)	printf("unlock read %d return %d\n", __NR_rotunlock_read, ret);
+	printf("unlock read %d return %d\n", __NR_rotunlock_read, ret);
 
+
+	sleep(1);
         ret = syscall(__NR_rotlock_write, NULL, NULL);
-	if(ret != 0)	printf("writer lock %d return %d\n", __NR_rotlock_write, ret);
+	printf("writer lock %d return %d\n", __NR_rotlock_write, ret);
 
         ret = syscall(__NR_rotunlock_write, NULL, NULL);
-	if(ret != 0)	printf("writer unlock %d return %d\n", __NR_rotunlock_write, ret);
+	printf("writer unlock %d return %d\n", __NR_rotunlock_write, ret);
 
 	return 0;
 }
