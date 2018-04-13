@@ -48,8 +48,8 @@ void primeFactors(long long n)
                         printf("* ");
                 }
         }
-        if(n > 2)
-	printf("%lld \n", n);
+	if(n>2)
+		printf("%lld \n", n);
 }
 
 
@@ -64,9 +64,10 @@ int main(int argc, char**argv)
 		exit(1);
 	}
 
+	open_file();
 	while(1)
 	{
-		open_file();
+		fseek(fp, sizeof(long long), SEEK_SET);
 		syscall(__NR_rotlock_read, degree, range);
 
 		if (fgets(line, 64, fp) == NULL)
@@ -79,7 +80,8 @@ int main(int argc, char**argv)
 		primeFactors(integer);
 		syscall(__NR_rotunlock_read, degree, range);
 
-		fclose(fp);
 	}
+
+	fclose(fp);
 	return 0;
 }

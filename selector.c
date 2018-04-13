@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
 {
    int range = 90;
    int degree = 90; 
+
    if(argc == 1)
    {
       fputs("Usage: ./selector <number>\n", stderr);
@@ -40,23 +41,21 @@ int main(int argc, char *argv[])
 
    integer =(long long) atoi(argv[1]);
 
+   open_file();   
    while(1)
    {   
-      open_file();   
       fflush(fp);
+      fseek(fp, sizeof(long long), SEEK_SET);
 
       syscall(__NR_rotlock_write, degree, range);
       fprintf(fp, "%lld", integer);
       fflush(fp);
       printf("selector: %lld\n", integer);
-
+      integer = integer + 1;
       syscall(__NR_rotunlock_write, degree, range);
 
-      integer = integer + 1;
-   
-
-      fclose(fp);
    }
    
+   fclose(fp);
    return 0;
 }
