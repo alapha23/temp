@@ -39,7 +39,7 @@ int main(int args, char **argv)
 	        flag = sched_setscheduler( pid, SCHED_WRR, &param);
 //	        flag = syscall(__NR_setscheduler, pid, &param);
 	        printf("SET SCHEDULER: Process %d returned: %d \n", pid, flag);
-		int counter=500;
+		int counter=10;
 		while(counter)
 		{
 			weight = 11;
@@ -47,6 +47,28 @@ int main(int args, char **argv)
 		        printf("SET: Process %d weight returned: %d \n", pid, flag);
 			flag = syscall(__NR_sched_getweight, pid, weight);
 		        printf("GET: Process %d has weight %d\n", pid, flag);
+			counter--;
+		}
+		exit(0);
+	}
+	wait(&status);
+	printf("NEW PROCESS\n");
+	if((pid=fork())!=0)
+	{
+	        flag = sched_setscheduler( pid, SCHED_WRR, &param);
+	        printf("SET SCHEDULER: Process %d returned: %d \n", pid, flag);
+		int counter=10;
+		while(counter)
+		{
+			if((pid=fork())!=0)
+			{
+				int counter2=100000;
+				while(counter2)counter2--;
+				printf("Child process scheduler: %d\n", sched_getscheduler(pid));
+				exit(0);
+			}
+
+			wait(&status);
 			counter--;
 		}
 	}
